@@ -8,13 +8,13 @@ Complete guide for running the Multi-AI Bot Conversation project in Google Colab
 
 Click the badge below to open the notebook directly in Google Colab:
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/techVasanthsmart/multi-ai-conversation/blob/main/multi-ai-conversation.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/techVasanthsmart/Multi-AI-Bot-Conversation/blob/master/multi-ai-conversation.ipynb)
 
 ### Option 2: Direct Link
 
 Copy and paste this URL in your browser:
 ```
-https://colab.research.google.com/github/techVasanthsmart/multi-ai-conversation/blob/main/multi-ai-conversation.ipynb
+https://colab.research.google.com/github/techVasanthsmart/Multi-AI-Bot-Conversation/blob/master/multi-ai-conversation.ipynb
 ```
 
 ## 📋 Prerequisites
@@ -34,7 +34,7 @@ https://colab.research.google.com/github/techVasanthsmart/multi-ai-conversation/
 2. Go to [Google Colab](https://colab.research.google.com/)
 3. Click **File** → **Open Notebook**
 4. Select the **GitHub** tab
-5. Enter your repository URL: `techVasanthsmart/multi-ai-conversation`
+5. Enter your repository URL: `techVasanthsmart/Multi-AI-Bot-Conversation`
 6. Select `multi-ai-conversation.ipynb`
 
 ### Step 2: Install Dependencies
@@ -78,16 +78,16 @@ from google.colab import userdata
 import os
 
 # Load API keys from Colab Secrets
-os.environ['OPENAI_API_KEY'] = userdata.get('OPENAI_API_KEY', '')
-os.environ['GEMINI_API_KEY'] = userdata.get('GEMINI_API_KEY', '')
-os.environ['OPENROUTER_API_KEY'] = userdata.get('OPENROUTER_API_KEY', '')
-os.environ['GROQ_API_KEY'] = userdata.get('GROQ_API_KEY', '')
+os.environ['OPENAI_API_KEY'] = userdata.get('OPENAI_API_KEY')
+os.environ['GEMINI_API_KEY'] = userdata.get('GEMINI_API_KEY')
+os.environ['OPENROUTER_API_KEY'] = userdata.get('OPENROUTER_API_KEY')
+os.environ['GROQ_API_KEY'] = userdata.get('GROQ_API_KEY')
 
 # Load model names
-os.environ['OPENAI_MODEL'] = userdata.get('OPENAI_MODEL', 'gpt-4o-mini')
-os.environ['GOOGLE_MODEL'] = userdata.get('GOOGLE_MODEL', 'gemini-2.0-flash-exp')
-os.environ['OPENROUTER_MODEL'] = userdata.get('OPENROUTER_MODEL', 'deepseek/deepseek-r1-0528:free')
-os.environ['GROQ_MODEL'] = userdata.get('GROQ_MODEL', 'llama-3.1-8b-instant')
+os.environ['OPENAI_MODEL'] = userdata.get('OPENAI_MODEL')
+os.environ['GOOGLE_MODEL'] = userdata.get('GOOGLE_MODEL')
+os.environ['OPENROUTER_MODEL'] = userdata.get('OPENROUTER_MODEL')
+os.environ['GROQ_MODEL'] = userdata.get('GROQ_MODEL')
 ```
 
 ## 🔐 Method 2: Direct Environment Variables (Quick Testing)
@@ -233,7 +233,7 @@ The conversation will start automatically and display in the notebook output.
 ### Colab Badge Code (for README)
 
 ```html
-<a href="https://colab.research.google.com/github/techVasanthsmart/multi-ai-conversation/blob/main/multi-ai-conversation.ipynb" target="_parent">
+<a href="https://colab.research.google.com/github/techVasanthsmart/Multi-AI-Bot-Conversation/blob/master/multi-ai-conversation.ipynb" target="_parent">
   <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a>
 ```
@@ -241,13 +241,13 @@ The conversation will start automatically and display in the notebook output.
 ### Markdown Badge (for README)
 
 ```markdown
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/techVasanthsmart/multi-ai-conversation/blob/main/multi-ai-conversation.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/techVasanthsmart/Multi-AI-Bot-Conversation/blob/master/multi-ai-conversation.ipynb)
 ```
 
 ### Direct Colab Link Format
 
 ```
-https://colab.research.google.com/github/techVasanthsmart/multi-ai-conversation/blob/main/multi-ai-conversation.ipynb
+https://colab.research.google.com/github/techVasanthsmart/Multi-AI-Bot-Conversation/blob/master/multi-ai-conversation.ipynb
 ```
 
 ## ✅ Checklist

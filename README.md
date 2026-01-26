@@ -2,7 +2,7 @@
 
 A crazy experiment where four AI bots with distinct personalities engage in chaotic, entertaining conversations using different AI models and APIs.
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/techVasanthsmart/multi-ai-conversation/blob/main/multi-ai-conversation.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/techVasanthsmart/Multi-AI-Bot-Conversation/blob/master/multi-ai-conversation.ipynb)
 
 ![Python](https://img.shields.io/badge/python-3.8+-blue.svg)
 ![Jupyter](https://img.shields.io/badge/jupyter-notebook-orange.svg)
@@ -51,8 +51,8 @@ Claims to hate conflict but makes it ten times more dramatic. Over-explains emot
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/techVasanthsmart/multi-ai-conversation.git
-cd multi-ai-conversation
+git clone https://github.com/techVasanthsmart/Multi-AI-Bot-Conversation.git
+cd Multi-AI-Bot-Conversation
 ```
 
 ### 2. Install Dependencies
@@ -127,7 +127,7 @@ pip install -r requirements.txt
 
 ### Option 2: Google Colab
 
-**Quick Start**: Click the "Open in Colab" badge at the top of this README, or use the direct link: [Open in Google Colab](https://colab.research.google.com/github/techVasanthsmart/multi-ai-conversation/blob/main/multi-ai-conversation.ipynb)
+**Quick Start**: Click the "Open in Colab" badge at the top of this README, or use the direct link: [Open in Google Colab](https://colab.research.google.com/github/techVasanthsmart/Multi-AI-Bot-Conversation/blob/master/multi-ai-conversation.ipynb)
 
 For detailed Colab setup instructions, see [COLAB_SETUP.md](COLAB_SETUP.md).
 
