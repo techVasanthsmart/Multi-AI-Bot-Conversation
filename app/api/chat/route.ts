@@ -25,6 +25,10 @@ export async function POST(req: Request) {
         apiKey = process.env.GROQ_API_KEY || '';
         baseURL = 'https://api.groq.com/openai/v1';
         break;
+      case 'Z.AI':
+        apiKey = process.env.GLM_API_KEY || '';
+        baseURL = 'https://api.z.ai/api/paas/v4';
+        break;
       default:
         break;
     }
@@ -58,7 +62,8 @@ export async function POST(req: Request) {
     const response = await openai.chat.completions.create({
       model: model,
       messages: messages,
-    });
+      ...(provider === 'Z.AI' && { thinking: { type: 'enabled' }, max_tokens: 4096, temperature: 1.0 })
+    } as any);
 
     let content = response.choices[0].message.content?.trim() || '';
 

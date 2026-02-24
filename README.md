@@ -51,3 +51,15 @@ A next-generation UI for defining AI personalities and simulating chaotic conver
 2. **Set Topic**: Enter an initial topic or context for their discussion.
 3. **Start Simulation**: Click "Start Simulation" to initiate the conversation.
 4. **Observe & Control**: Watch the chaotic interaction unfold, with options to pause, reset, or go back to setup anytime.
+
+## 👤 Author
+
+**Vasanth Kumar**
+
+- Website: [Portfolio](https://vasanthubs.co.in/)
+- GitHub: [@techVasanthsmart](https://github.com/techVasanthsmart)
+- LinkedIn: [Vasanth Kumar](https://www.linkedin.com/in/vasanthkumar-s-0995a5185/)
+
+---
+
+Made with ❤️ by Vasanth Kumar. Open Source for the Community.

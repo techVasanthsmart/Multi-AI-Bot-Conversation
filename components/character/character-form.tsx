@@ -18,33 +18,8 @@ const MODELS = [
   { id: "gemini-pro", name: "Gemini Pro", provider: "Google" },
   { id: "mixtral-8x7b", name: "Mixtral", provider: "Groq" },
   
-  // February 2026
-  { id: "qwen/qwen3-vl-235b-a22b-thinking", name: "Qwen3 VL 235B", provider: "OpenRouter" },
-  { id: "riverflow/riverflow-v2-pro", name: "Riverflow V2 Pro", provider: "OpenRouter" },
-  { id: "riverflow/riverflow-v2-fast", name: "Riverflow V2 Fast", provider: "OpenRouter" },
-
-  // January 2026
-  { id: "stepfun/step-3.5-flash-free", name: "Step 3.5 Flash", provider: "OpenRouter" },
-  { id: "arcee-ai/trinity-large-preview-free", name: "Trinity Large Preview", provider: "OpenRouter" },
-  { id: "upstage/solar-pro-3-free", name: "Solar Pro 3", provider: "OpenRouter" },
-  { id: "lfm/lfm-2.5-1.2b-thinking-free", name: "LFM2.5-1.2B-Thinking", provider: "OpenRouter" },
-  { id: "lfm/lfm-2.5-1.2b-instruct-free", name: "LFM2.5-1.2B-Instruct", provider: "OpenRouter" },
-  { id: "black-forest-labs/flux-2-klein-4b", name: "FLUX.2 Klein 4B", provider: "OpenRouter" },
-
-  // December 2025
-  { id: "seedream/seedream-4.5", name: "Seedream 4.5", provider: "OpenRouter" },
-  { id: "black-forest-labs/flux-2-max", name: "FLUX.2 Max", provider: "OpenRouter" },
-
-  // Free Models
-  { id: "deepseek/deepseek-r1-chimera-free", name: "DeepSeek R1T2 Chimera", provider: "OpenRouter" },
-  { id: "z-ai/glm-4.5-air-free", name: "GLM 4.5 Air", provider: "OpenRouter" },
-  { id: "deepseek/deepseek-r1-t-chimera-free", name: "DeepSeek R1T Chimera", provider: "OpenRouter" },
-  { id: "deepseek/deepseek-r1-0528-free", name: "R1 0528", provider: "OpenRouter" },
-  { id: "nvidia/nemotron-3-nano-30b-a3b-free", name: "Nemotron 3 Nano 30B", provider: "OpenRouter" },
-  { id: "openai/gpt-oss-120b-free", name: "gpt-oss-120b", provider: "OpenRouter" },
-  { id: "meta-llama/llama-3.3-70b-instruct-free", name: "Llama 3.3 70B Instruct", provider: "OpenRouter" },
-  { id: "arcee-ai/trinity-mini-free", name: "Trinity Mini", provider: "OpenRouter" },
-  { id: "deepseek/deepseek-r1-free", name: "DeepSeek R1", provider: "OpenRouter" },
+  // Z.AI Models
+  { id: "glm-4.7", name: "GLM-4.7", provider: "Z.AI" },
 ]
 
 const COLORS = [
@@ -60,16 +35,20 @@ export function CharacterForm({ onAdd }: CharacterFormProps) {
   const [personality, setPersonality] = useState("")
   const [selectedModel, setSelectedModel] = useState(MODELS[0].id)
   const [selectedColor, setSelectedColor] = useState(COLORS[0])
+  const [error, setError] = useState("")
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    if (!name || !personality) return
+    if (!name.trim() || !personality.trim()) {
+      setError("Please provide both a name and a personality.")
+      return
+    }
 
     const selectedModelData = MODELS.find(m => m.id === selectedModel)
     
     onAdd({
-      name,
-      personality,
+      name: name.trim(),
+      personality: personality.trim(),
       model: selectedModel,
       provider: selectedModelData?.provider || "OpenAI",
       color: selectedColor,
@@ -78,29 +57,36 @@ export function CharacterForm({ onAdd }: CharacterFormProps) {
     // Reset form
     setName("")
     setPersonality("")
+    setError("")
     setSelectedColor(COLORS[Math.floor(Math.random() * COLORS.length)])
   }
 
   return (
-    <Card className="border-slate-200 bg-white/90 backdrop-blur-md shadow-sm">
+    <Card className="border-slate-200 bg-white/90 backdrop-blur-md">
       <CardContent className="pt-6 space-y-4">
         <div className="space-y-2">
           <Label className="text-slate-700 font-semibold">Name</Label>
           <Input 
             placeholder="e.g. The Sarcastic Robot" 
             value={name} 
-            onChange={(e) => setName(e.target.value)}
-            className="bg-white border-slate-200 text-slate-900 placeholder:text-slate-400 focus-visible:ring-indigo-500"
+            onChange={(e) => {
+              setName(e.target.value)
+              if (error) setError("")
+            }}
+            className={`bg-white text-slate-900 placeholder:text-slate-400 focus:bg-white ${error && !name.trim() ? "border-red-500 focus-visible:ring-red-500" : "border-slate-200 focus-visible:ring-indigo-500"}`}
           />
         </div>
         
         <div className="space-y-2">
           <Label className="text-slate-700 font-semibold">Personality</Label>
           <textarea 
-            className="flex min-h-[80px] w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm ring-offset-background placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 text-slate-900"
+            className={`flex min-h-[80px] w-full rounded-md border bg-white px-3 py-2 text-sm ring-offset-background placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 text-slate-900 ${error && !personality.trim() ? "border-red-500 focus-visible:ring-red-500" : "border-slate-200 focus-visible:ring-indigo-500"}`}
             placeholder="Describe how this bot behaves..."
             value={personality}
-            onChange={(e) => setPersonality(e.target.value)}
+            onChange={(e) => {
+              setPersonality(e.target.value)
+              if (error) setError("")
+            }}
           />
         </div>
 
@@ -137,6 +123,9 @@ export function CharacterForm({ onAdd }: CharacterFormProps) {
           </div>
         </div>
 
+        {error && (
+          <p className="text-sm font-medium text-red-500 animate-in fade-in">{error}</p>
+        )}
         <Button 
           onClick={handleSubmit} 
           className="w-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white border-0 transition-opacity hover:opacity-90"

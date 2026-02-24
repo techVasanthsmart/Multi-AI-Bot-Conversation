@@ -45,7 +45,17 @@ export default function Home() {
     const interval = setInterval(async () => {
         if (characters.length === 0) return
 
-        const randomChar = characters[Math.floor(Math.random() * characters.length)]
+        let nextCharIndex = 0;
+        const lastBotMessage = [...messages].reverse().find(m => m.role === "assistant");
+        
+        if (lastBotMessage) {
+            const lastIndex = characters.findIndex(c => c.name === lastBotMessage.senderName);
+            if (lastIndex !== -1) {
+                nextCharIndex = (lastIndex + 1) % characters.length;
+            }
+        }
+        
+        const randomChar = characters[nextCharIndex];
         
         // Find provider based on model or stored in character
         // We need to ensure character has provider info. 
