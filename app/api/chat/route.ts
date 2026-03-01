@@ -57,7 +57,10 @@ export async function POST(req: Request) {
       defaultHeaders,
     });
 
-    const formattedConvo = history
+    // Limit conversation history to last 10 messages
+    const limitedHistory = history.slice(-10);
+
+    const formattedConvo = limitedHistory
       .map((msg: any) => {
         const sender =
           msg.senderName || (msg.role === "user" ? "User" : "Assistant");
@@ -83,25 +86,55 @@ export async function POST(req: Request) {
       }),
     } as any);
 
-    let content = "";
+    // Create a ReadableStream that sends chunks as they arrive
+    const readable = new ReadableStream({
+      async start(controller) {
+        let content = "";
 
-    for await (const chunk of stream as any) {
-      const delta = chunk?.choices?.[0]?.delta?.content;
-      if (typeof delta === "string") {
-        content += delta;
-      }
-    }
+        try {
+          for await (const chunk of stream as any) {
+            const delta = chunk?.choices?.[0]?.delta?.content;
+            if (typeof delta === "string") {
+              content += delta;
+              // Send chunk in JSON format for client parsing
+              controller.enqueue(
+                new TextEncoder().encode(
+                  JSON.stringify({ chunk: delta, sender: nextSpeaker }) + "\n",
+                ),
+              );
+            }
+          }
 
-    content = content.trim();
+          // Send final message with cleanup
+          let finalContent = content.trim();
+          if (finalContent.startsWith(`${nextSpeaker}:`)) {
+            finalContent = finalContent
+              .substring(nextSpeaker.length + 1)
+              .trim();
+          }
 
-    // Clean up if the model outputs "Speaker: Content"
-    if (content.startsWith(`${nextSpeaker}:`)) {
-      content = content.substring(nextSpeaker.length + 1).trim();
-    }
+          // Send completion signal
+          controller.enqueue(
+            new TextEncoder().encode(
+              JSON.stringify({
+                done: true,
+                content: finalContent,
+                sender: nextSpeaker,
+              }) + "\n",
+            ),
+          );
+          controller.close();
+        } catch (error: any) {
+          controller.error(error);
+        }
+      },
+    });
 
-    return NextResponse.json({
-      content,
-      sender: nextSpeaker,
+    return new Response(readable, {
+      headers: {
+        "Content-Type": "application/x-ndjson",
+        "Cache-Control": "no-cache",
+      },
     });
   } catch (error: any) {
     console.error("Chat Error:", error);

@@ -1,4 +1,46 @@
+/* ============================================
+   GLOBAL FONT IMPORTS & TAILWIND
+   ============================================ */
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Jet+Brains+Mono:wght@400;500;600&display=swap");
 @import "tailwindcss";
+
+/* ============================================
+   GLOBAL FONT VARIABLES
+   ============================================ */
+
+:root {
+  /* Font Stack Variables */
+  --font-display:
+    "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  --font-body:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
+    "Cantarell", sans-serif;
+  --font-code: "Jet Brains Mono", "Monaco", "Courier New", monospace;
+
+  /* Font Size Scale (mobile-first) */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.25rem;
+  --text-5xl: 3rem;
+
+  /* Line Height Scale */
+  --leading-tight: 1.25;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.625;
+  --leading-loose: 2;
+
+  /* Letter Spacing */
+  --tracking-tight: -0.02em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.02em;
+  --tracking-wider: 0.04em;
+}
 
 @theme {
   --color-border: hsl(var(--border));
@@ -37,16 +79,32 @@
   --animate-aurora: aurora 60s linear infinite;
 
   @keyframes accordion-down {
-    from { height: 0 }
-    to { height: var(--radix-accordion-content-height) }
+    from {
+      height: 0;
+    }
+    to {
+      height: var(--radix-accordion-content-height);
+    }
   }
   @keyframes accordion-up {
-    from { height: var(--radix-accordion-content-height) }
-    to { height: 0 }
+    from {
+      height: var(--radix-accordion-content-height);
+    }
+    to {
+      height: 0;
+    }
   }
   @keyframes aurora {
-    0% { background-position: 50% 50%, 50% 50% }
-    100% { background-position: 350% 50%, 350% 50% }
+    0% {
+      background-position:
+        50% 50%,
+        50% 50%;
+    }
+    100% {
+      background-position:
+        350% 50%,
+        350% 50%;
+    }
   }
 }
 
@@ -85,8 +143,152 @@
 /* With v4, @apply works if the class exists. Now that we defined --color-border, 'border-border' utility should exist. */
 
 @layer base {
+  /* Global Base Styles - Mobile First */
+  html {
+    font-size: 16px;
+    @apply scroll-smooth;
+  }
+
   body {
     @apply bg-background text-foreground;
+    font-family: var(--font-body);
+    font-weight: 400;
+    line-height: var(--leading-normal);
+    letter-spacing: var(--tracking-normal);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Heading Styles - All animation elements */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    line-height: var(--leading-tight);
+    letter-spacing: var(--tracking-tight);
+    will-change: transform;
+  }
+
+  h1 {
+    font-size: var(--text-2xl);
+    @apply md:text-3xl lg:text-4xl;
+  }
+
+  h2 {
+    font-size: var(--text-xl);
+    @apply md:text-2xl lg:text-3xl;
+  }
+
+  h3 {
+    font-size: var(--text-lg);
+    @apply md:text-xl;
+  }
+
+  h4,
+  h5,
+  h6 {
+    font-size: var(--text-base);
+    @apply md:text-lg;
+  }
+
+  /* Body Text */
+  p {
+    font-size: var(--text-base);
+    line-height: var(--leading-normal);
+  }
+
+  /* Code Block Styles */
+  code,
+  pre {
+    font-family: var(--font-code);
+    font-size: var(--text-sm);
+  }
+
+  code {
+    @apply px-1.5 py-0.5 rounded bg-slate-100 text-slate-800;
+  }
+
+  pre {
+    @apply p-4 rounded-lg bg-slate-900 text-slate-100 overflow-x-auto;
+  }
+
+  /* Link Styles with optimizations */
+  a {
+    @apply text-primary hover:text-primary/80 transition-colors duration-200;
+    text-decoration: none;
+  }
+
+  /* Button Base Styles */
+  button {
+    font-family: var(--font-display);
+    font-weight: 600;
+    will-change: transform, background-color;
+    transition-property: background-color, color, border-color, transform;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 200ms;
+  }
+
+  /* Input Base Styles */
+  input,
+  textarea,
+  select {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+  }
+
+  /* Animation-Optimized Elements */
+  [data-animated],
+  .animated-element,
+  [class*="animate-"],
+  [class*="transition-"] {
+    will-change: auto;
+  }
+
+  /* GPU Acceleration for Transform Animations */
+  @supports (transform: translate3d(0, 0, 0)) {
+    .aurora-bg,
+    [data-animated],
+    .animated-element,
+    [class*="animate-"] {
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  /* Smooth Scrolling */
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  /* Reduce Motion for Accessibility */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  /* Responsive Typography - Tablet */
+  @media (min-width: 768px) {
+    html {
+      font-size: 17px;
+    }
+  }
+
+  /* Responsive Typography - Desktop */
+  @media (min-width: 1024px) {
+    html {
+      font-size: 18px;
+    }
   }
 }
 
@@ -94,15 +296,558 @@
   @apply bg-white/70 backdrop-blur-xl border border-white/60 shadow-[0_8px_30px_rgb(0,0,0,0.08)];
 }
 
+/* ============================================
+   ANIMATION BASE STYLES & WILL-CHANGE OPTIMIZATIONS
+   ============================================ */
+
+/* Smooth Animation Foundation */
+.animate-gpu {
+  will-change: transform, opacity;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+.animate-smooth {
+  will-change: transform, opacity;
+  transition-property: transform, opacity;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+.animate-fast {
+  transition-duration: 150ms;
+}
+
+.animate-slow {
+  transition-duration: 500ms;
+}
+
+/* Transform Animations */
+.animate-slide-in-up {
+  will-change: transform, opacity;
+  animation: slideInUp 0.4s ease-out forwards;
+}
+
+.animate-slide-in-down {
+  will-change: transform, opacity;
+  animation: slideInDown 0.4s ease-out forwards;
+}
+
+.animate-slide-in-left {
+  will-change: transform, opacity;
+  animation: slideInLeft 0.4s ease-out forwards;
+}
+
+.animate-slide-in-right {
+  will-change: transform, opacity;
+  animation: slideInRight 0.4s ease-out forwards;
+}
+
+.animate-fade-in {
+  will-change: opacity;
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+.animate-scale-in {
+  will-change: transform, opacity;
+  animation: scaleIn 0.3s ease-out forwards;
+}
+
+.animate-pulse-subtle {
+  will-change: opacity;
+  animation: pulsSubtle 2s ease-in-out infinite;
+}
+
+/* Mobile-First Responsive Animations */
+@media (max-width: 640px) {
+  .animate-duration-slow {
+    animation-duration: 400ms;
+  }
+
+  [data-animate] {
+    will-change: auto;
+  }
+}
+
+/* Tablet Optimizations */
+@media (min-width: 768px) {
+  .md\:animate-duration-normal {
+    animation-duration: 300ms;
+  }
+}
+
+/* Desktop/Large Screen Optimizations */
+@media (min-width: 1024px) {
+  .lg\:animate-duration-smooth {
+    animation-duration: 400ms;
+  }
+}
+
+/* ============================================
+   KEYFRAME ANIMATIONS
+   ============================================ */
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 40px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -40px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translate3d(-40px, 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translate3d(40px, 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale3d(0.95, 0.95, 1);
+  }
+  to {
+    opacity: 1;
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+@keyframes pulsSubtle {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
 .aurora-bg {
-  background-image: 
-    radial-gradient(at 0% 0%, hsla(253,100%,92%,1) 0, transparent 50%), 
-    radial-gradient(at 50% 0%, hsla(225,100%,94%,1) 0, transparent 50%), 
-    radial-gradient(at 100% 0%, hsla(339,100%,92%,1) 0, transparent 50%);
+  background-image:
+    radial-gradient(at 0% 0%, hsla(253, 100%, 92%, 1) 0, transparent 50%),
+    radial-gradient(at 50% 0%, hsla(225, 100%, 94%, 1) 0, transparent 50%),
+    radial-gradient(at 100% 0%, hsla(339, 100%, 92%, 1) 0, transparent 50%);
 }
 
 .cosmic-gradient {
   background: linear-gradient(to right, #4f46e5, #06b6d4);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN PATTERNS (Mobile-First)
+   ============================================ */
+
+/* Container Responsive Padding */
+.responsive-container {
+  width: 100%;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (min-width: 640px) {
+  .responsive-container {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .responsive-container {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .responsive-container {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+.responsive-section {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+@media (min-width: 640px) {
+  .responsive-section {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .responsive-section {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .responsive-section {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+}
+
+/* Mobile-First Grid System */
+.grid-responsive {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .grid-responsive {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .grid-responsive {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid-responsive {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+  }
+}
+
+.grid-responsive-2 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .grid-responsive-2 {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid-responsive-2 {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+}
+
+/* Flex Responsive Layout */
+.flex-responsive {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .flex-responsive {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .flex-responsive {
+    gap: 2rem;
+  }
+}
+
+/* Text Scaling - Mobile First */
+.text-responsive-sm {
+  font-size: var(--text-sm);
+}
+
+@media (min-width: 640px) {
+  .text-responsive-sm {
+    font-size: var(--text-base);
+  }
+}
+
+@media (min-width: 768px) {
+  .text-responsive-sm {
+    font-size: var(--text-lg);
+  }
+}
+
+.text-responsive {
+  font-size: var(--text-base);
+}
+
+@media (min-width: 640px) {
+  .text-responsive {
+    font-size: var(--text-lg);
+  }
+}
+
+@media (min-width: 768px) {
+  .text-responsive {
+    font-size: var(--text-xl);
+  }
+}
+
+.text-responsive-lg {
+  font-size: var(--text-lg);
+}
+
+@media (min-width: 640px) {
+  .text-responsive-lg {
+    font-size: var(--text-xl);
+  }
+}
+
+@media (min-width: 768px) {
+  .text-responsive-lg {
+    font-size: var(--text-2xl);
+  }
+}
+
+.text-responsive-xl {
+  font-size: var(--text-xl);
+}
+
+@media (min-width: 640px) {
+  .text-responsive-xl {
+    font-size: var(--text-2xl);
+  }
+}
+
+@media (min-width: 768px) {
+  .text-responsive-xl {
+    font-size: var(--text-3xl);
+  }
+}
+
+.text-responsive-2xl {
+  font-size: var(--text-2xl);
+}
+
+@media (min-width: 640px) {
+  .text-responsive-2xl {
+    font-size: var(--text-3xl);
+  }
+}
+
+@media (min-width: 768px) {
+  .text-responsive-2xl {
+    font-size: var(--text-4xl);
+  }
+}
+
+/* Spacing Utilities - Mobile First */
+.space-responsive-x > * + * {
+  margin-left: 0.5rem;
+}
+
+@media (min-width: 640px) {
+  .space-responsive-x > * + * {
+    margin-left: 0.75rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .space-responsive-x > * + * {
+    margin-left: 1rem;
+  }
+}
+
+.space-responsive-y > * + * {
+  margin-top: 0.5rem;
+}
+
+@media (min-width: 640px) {
+  .space-responsive-y > * + * {
+    margin-top: 0.75rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .space-responsive-y > * + * {
+    margin-top: 1rem;
+  }
+}
+
+/* Animation Container - Responsive */
+.animation-container {
+  will-change: transform, opacity;
+  transform: translate3d(0, 0, 0);
+}
+
+.animation-container-staggered > * {
+  animation-fill-mode: both;
+}
+
+.animation-container-staggered > :nth-child(1) {
+  animation-delay: 0ms;
+}
+
+.animation-container-staggered > :nth-child(2) {
+  animation-delay: 100ms;
+}
+
+.animation-container-staggered > :nth-child(3) {
+  animation-delay: 200ms;
+}
+
+.animation-container-staggered > :nth-child(4) {
+  animation-delay: 300ms;
+}
+
+.animation-container-staggered > :nth-child(5) {
+  animation-delay: 400ms;
+}
+
+/* ============================================
+   RESPONSIVE IMAGE & MEDIA
+   ============================================ */
+
+img {
+  @apply w-full h-auto max-w-full;
+}
+
+@media (max-width: 640px) {
+  /* Optimize for mobile */
+  .hide-mobile {
+    display: none !important;
+  }
+
+  .text-sm {
+    font-size: var(--text-xs);
+  }
+
+  button {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  a {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0.05);
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1023px) {
+  /* Tablet Optimizations */
+  .hide-tablet {
+    display: none !important;
+  }
+
+  .text-responsive {
+    font-size: var(--text-lg);
+  }
+}
+
+@media (min-width: 1024px) {
+  /* Desktop Optimizations */
+  .hide-desktop {
+    display: none !important;
+  }
+
+  .text-responsive {
+    font-size: var(--text-xl);
+  }
+}
+
+/* ============================================
+   PERFORMANCE & ACCESSIBILITY
+   ============================================ */
+
+/* Optimize touch targets on mobile */
+@media (hover: none) and (pointer: coarse) {
+  button,
+  a,
+  [role="button"] {
+    min-height: 48px;
+    min-width: 48px;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: more) {
+  body {
+    letter-spacing: var(--tracking-wide);
+    line-height: var(--leading-relaxed);
+  }
+}
+
+/* Print Styles */
+@media print {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  body {
+    background: white;
+    color: black;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: underline;
+  }
+
+  .hide-print {
+    display: none !important;
+  }
 }

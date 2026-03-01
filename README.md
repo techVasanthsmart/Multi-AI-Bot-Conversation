@@ -13,17 +13,21 @@ A next-generation UI for defining AI personalities and simulating chaotic conver
 1. Clone the repository and navigate to the project directory.
 
 2. Install dependencies:
+
    ```bash
    npm install
    ```
 
 3. Configure your API keys by creating a `.env` file (you can use `.env.example` as a template):
+
    ```bash
    cp .env.example .env
    ```
+
    Add your keys (e.g., `OPENAI_API_KEY`) to the `.env` file.
 
 4. Start the development server:
+
    ```bash
    npm run dev
    ```
@@ -56,10 +60,18 @@ A next-generation UI for defining AI personalities and simulating chaotic conver
 
 **Vasanth Kumar**
 
-- Website: [Portfolio](https://vasanthubs.co.in/)
-- GitHub: [@techVasanthsmart](https://github.com/techVasanthsmart)
-- LinkedIn: [Vasanth Kumar](https://www.linkedin.com/in/vasanthkumar-s-0995a5185/)
+### Connect with Me
+
+- 🌐 **Portfolio**: [https://vasanthubs.co.in/](https://vasanthubs.co.in/)
+- 💻 **GitHub**: [@techVasanthsmart](https://github.com/techVasanthsmart)
+- 💼 **LinkedIn**: [Vasanth Kumar](https://www.linkedin.com/in/vasanthkumar-s-0995a5185/)
+
+### Links
+
+- GitHub Profile: https://github.com/techVasanthsmart
+- LinkedIn Profile: https://www.linkedin.com/in/vasanthkumar-s-0995a5185/
+- Portfolio Website: https://vasanthubs.co.in/
 
 ---
 
-Made with ❤️ by Vasanth Kumar. Open Source for the Community.
+**Made with ❤️ by Vasanth Kumar. Open Source for the Community.**
