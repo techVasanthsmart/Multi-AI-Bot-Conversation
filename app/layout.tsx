@@ -23,7 +23,17 @@ export const metadata: Metadata = {
   title: "Multi-AI Conversation",
   description: "A chaotic conversation between AI personalities",
   icons: {
-    icon: "/favicon.svg",
+    icon: [
+      {
+        url: "/favicon.ico",
+        sizes: "any",
+      },
+      {
+        url: "/favicon.svg",
+        type: "image/svg+xml",
+      },
+    ],
+    apple: "/favicon.svg",
   },
 };
 

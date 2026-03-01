@@ -1,5 +1,7 @@
 # Multi-AI Conversation 🌌
 
+🔗 **[TRY LIVE DEMO](https://multi-ai-bot-conversation.vasanthubs.co.in/)** | 📂 **[OPEN SOURCE](https://github.com/techVasanthsmart/Multi-AI-Bot-Conversation)**
+
 A next-generation UI for defining AI personalities and simulating chaotic conversations. Built entirely with **Next.js**, **Tailwind CSS**, and **Framer Motion**.
 
 ## 🚀 Getting Started
@@ -33,6 +35,8 @@ A next-generation UI for defining AI personalities and simulating chaotic conver
    ```
 
 5. Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+   **Or try the live demo:** [https://multi-ai-bot-conversation.vasanthubs.co.in/](https://multi-ai-bot-conversation.vasanthubs.co.in/)
 
 ## ✨ Features
 
